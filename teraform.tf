@@ -22,10 +22,6 @@ resource "aws_instance" "example" {
           "sudo apt-get install nginx",
     ]
   }
-  
-  tags {
-        Name = "Terraform provisioner test instance"
-  }
 }
 
 output "public_ip" {
