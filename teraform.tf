@@ -12,6 +12,6 @@ resource "aws_instance" "example" {
   subnet_id                 = "subnet-d66281b0"
 }
 
-output "public_ip" {
+output "public_dns" {
     value = "${aws_instance.example.public_dns}"
 }
