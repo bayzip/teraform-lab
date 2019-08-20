@@ -22,7 +22,7 @@ pipeline {
             }
         }
         stage('Installation Service') {
-            ansiblePlaybook installation: 'Ansible', inventory: 'host.inv', playbook: 'update.yml'
+            ansiblePlaybook installation: 'Ansible', inventory: '${WORKSPACE}/host.inv', playbook: '${WORKSPACE}/update.yml'
         }
     }
 
