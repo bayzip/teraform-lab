@@ -15,7 +15,6 @@ pipeline {
                 while ! timeout 0.2 ping -c 1 -n $callip &> /dev/null
         		do
             			printf "Connection Time Out"
-                        sleep 40s
         		done
                 echo "Success Get Response"
                 sed -i "s/AWSIP/$callip/g" host.inv
