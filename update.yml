@@ -4,10 +4,10 @@
   become: yes
   tasks:
     - name: Update Server
-      apt:
+      yum:
         name: '*'
         state: installed  
     - name: Install NGINX
-      apt:
+      yum:
         name: nginx
         state: present
