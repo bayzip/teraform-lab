@@ -21,8 +21,8 @@ pipeline {
         		'''
             }
         }
-        stage('Installation Service') {
-            sh label: '', script: 'ansible-playbook update.yml -i host.inv'
+        stage('Ansible') {
+            ansiblePlaybook installation: 'Ansible', inventory: '${WORKSPACE}/host.inv', playbook: '${WORKSPACE}/update.yml'
         }
     }
 
