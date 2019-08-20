@@ -6,7 +6,7 @@
     - name: Update Server
       apt:
         name: '*'
-        state: present
+        state: installed  
     - name: Install NGINX
       apt:
         name: nginx
