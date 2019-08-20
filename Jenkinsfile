@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Provision') { 
             steps {
-                rm -rf *
+                sh label: '', script: 'rm -rf *'
                 sh label: '', script: 'terraform init -input=false'
                 sh label: '', script: 'terraform plan -out=tfplan -input=false'   
                 sh label: '', script: 'terraform apply -input=false tfplan'
