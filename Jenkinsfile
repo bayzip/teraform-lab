@@ -11,14 +11,13 @@ pipeline {
         }
         stage('Giving EIPs') {
             steps {
-        		sh label: '', script: '''terraform show | grep public_dns | sed 's\"\\g' | awk '{print $3}' > ip.tmp
+        		sh label: '', script: '''terraform show | grep public_dns | sed \'s\\"\\\\g\' | awk \'{print $3}\' > ip.tmp
                 while ! timeout 0.2 ping -c 1 -n $(cat ip.tmp) &> /dev/null
         		do
             			printf "%c" "*"
         		done
                 echo "Success Get Response"
-                sed -i "s/AWSIP/$(cat ip.tmp)/g" host.inv
-        		'''
+                sed -i "s/AWSIP/$(cat ip.tmp)/g" host.inv'''
             }
         }
         stage('Ansible') {
