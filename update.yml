@@ -6,7 +6,7 @@
     - name: Update Server
       yum:
         name: '*'
-        state: installed  
+        state: present  
     - name: Install NGINX
       yum:
         name: nginx
