@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Giving EIPs') {
             steps {
-        		sh label: '', script: '''callip=$(terraform show | grep public_dns | sed 's/"//g' | awk '{print $3}')
+        		sh label: '', script: '''callip=$(terraform show | grep public_ip | sed 's/"//g' | awk '{print $3}')
                 while ! timeout 0.2 ping -c 1 -n $callip &> /dev/null
         		do
             			printf "Connection Time Out"
