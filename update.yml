@@ -1,0 +1,13 @@
+- hosts: localhost
+  connection: localhost
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: Update Server
+      apt:
+        name: '*'
+        state: present
+    - name: Install NGINX
+      apt:
+        name: nginx
+        state: present

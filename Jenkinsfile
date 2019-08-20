@@ -2,22 +2,28 @@ pipeline {
     agent any 
 
     stages {
-        stage('Init') { 
+        stage('Provision') { 
             steps {
-                sh label: '', script: 'terraform init -input=false'   
-            }
-        }
-        stage('Plan') { 
-            steps {
-                sh label: '', script: 'terraform plan -out=tfplan -input=false'
-            }
-        }
-        stage('Apply') {
-            steps {
+                sh label: '', script: 'terraform init -input=false'
+                sh label: '', script: 'terraform plan -out=tfplan -input=false'   
                 sh label: '', script: 'terraform apply -input=false tfplan'
             }
         }
-
+        stage('Giving EIPs') {
+            steps {
+        		sh label: '', script: '''terraform show | grep public_dns | sed 's\"\\g' | awk '{print $3}' > ip.tmp
+                while ! timeout 0.2 ping -c 1 -n $(cat ip.tmp) &> /dev/null
+        		do
+            			printf "%c" "*"
+        		done
+                echo "Success Get Response"
+                sed -i "s/AWSIP/$(cat ip.tmp)/g" host.inv
+        		'''
+            }
+        }
+        stage('Installation Service') {
+            ansiblePlaybook installation: 'Ansible', inventory: 'host.inv', playbook: 'update.yml'
+        }
     }
 
     post {
