@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Installation Service') {
             steps {
-                ansiblePlaybook become: true, becomeUser: 'jenkins', installation: 'Ansible', inventory: '${WORKSPACE}/ansible/host.inv', playbook: '${WORKSPACE}/ansible/update.yml'
+                ansiblePlaybook installation: 'Ansible', inventory: '${WORKSPACE}/ansible/host.inv', playbook: '${WORKSPACE}/ansible/update.yml'
             }
         }
     }
