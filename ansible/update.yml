@@ -1,10 +1,12 @@
-- hosts: localhost
-  connection: localhost
+- hosts: example
   gather_facts: false
   become: yes
   tasks:
+    - name: Update Server
+      yum:
+        name: '*'
+        state: latest
     - name: Install NGINX
       yum:
-        use_backend: yum
         name: nginx
         state: latest
