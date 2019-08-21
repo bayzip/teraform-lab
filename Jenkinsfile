@@ -26,7 +26,7 @@ pipeline {
         stage('Installation Service') {
             steps {
                 sh label: '', script: 'pwd'
-                sh label: '', script: 'ansible-playbook ansible/update.yml -i ansible/host.inv'
+                ansiblePlaybook installation: 'Ansible', inventory: '${WORKSPACE}/ansible/host.inv', playbook: '${WORKSPACE}/ansible/update.yml'
             }
         }
     }
