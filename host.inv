@@ -2,7 +2,7 @@
 AWSIP
 
 [example:vars]
-ansible_port=22
-ansible_ssh_user=ec2-user
+ansible_port='22'
+ansible_ssh_user='ec2-user'
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-ansible_ssh_private_key_file=${WORKSPACE}/docker.pem
+ansible_ssh_private_key_file='docker.pem'
