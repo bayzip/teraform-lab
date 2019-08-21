@@ -3,10 +3,15 @@
   become: yes
   tasks:
     - name: Update Server
-      yum:
+      apt:
         name: '*'
         state: latest
     - name: Install NGINX
-      yum:
+      apt:
         name: nginx
         state: latest
+    - name: Star Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
