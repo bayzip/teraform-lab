@@ -2,16 +2,15 @@
   gather_facts: false
   become: yes
   tasks:
-    - name: Update Server
+    - name: Upgrade all packages to the latest version
       apt:
-        name: '*'
-        state: latest
+        update_cache: yes
     - name: Install NGINX
       apt:
-        name: nginx
+        pkg: nginx
         state: latest
     - name: Star Nginx
       service:
         name: nginx
         state: started
-        enabled: yes
+        enabled: ye
