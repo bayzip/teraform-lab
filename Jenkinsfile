@@ -13,7 +13,7 @@ pipeline {
             steps {
         		sh label: '', script: '''chmod 400 docker.pem 
                 callip=$(terraform show | grep public_ip | sed 's/"//g' | awk '{print $3}' | head -n2 | tail -n1)
-                while ! ssh -i docker.pem -o StrictHostKeyChecking ec2-user@$callip uname &> /dev/null
+                while ! ssh -i docker.pem -o StrictHostKeyChecking=no ec2-user@$callip uname &> /dev/null
         		do
             			printf "Connection Time Out"
         		done
