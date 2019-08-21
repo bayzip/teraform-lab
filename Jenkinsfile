@@ -4,18 +4,14 @@ pipeline {
     stages {
         stage('Provision') { 
             steps {
-                sh label: '', script: 'cd ${WORKSPACE}/terraform'
-                sh label: '', script: 'pwd'
-                sh label: '', script: 'terraform init -input=false'
+                sh label: '', script: 'terraform init -input=false -backend-config=terraform/teraform.tf'
                 sh label: '', script: 'terraform plan -out=tfplan -input=false'   
                 sh label: '', script: 'terraform apply -input=false tfplan'
             }
         }
         stage('Giving EIPs') {
             steps {
-                sh label: '', script: 'cd ${WORKSPACE}/ansible'
-                sh label: '', script: 'pwd'
-        		sh label: '', script: '''chmod 400 docker.pem 
+        		sh label: '', script: '''chmod 400 ansible/docker.pem 
                 callip=$(terraform show | grep public_ip | sed 's/"//g' | awk '{print $3}' | head -n2 | tail -n1)
                 while ! ssh -i docker.pem -o StrictHostKeyChecking=no ec2-user@$callip uname &> /dev/null
         		do
@@ -30,7 +26,7 @@ pipeline {
         stage('Installation Service') {
             steps {
                 sh label: '', script: 'pwd'
-                sh label: '', script: 'ansible-playbook update.yml -i host.inv'
+                sh label: '', script: 'ansible-playbook ansible/update.yml -i ansible/host.inv'
             }
         }
         stage('Remove Workspace') {
