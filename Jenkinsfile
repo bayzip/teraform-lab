@@ -14,7 +14,7 @@ pipeline {
         		sh label: '', script: '''chmod 400 ansible/docker.pem 
                 callip=$(terraform show | grep public_ip | sed 's/"//g' | awk '{print $3}' | head -n2 | tail -n1)
                 sed -i "s/AWSIP/$callip/g" ansible/host.inv
-                while ! timeout 0.2 ping -c 1 -n $callip &> /dev/null
+                while ! ssh -o StrictHostKeyChecking=no -i ansible/docker.pem ubuntu@$callip uname &> /dev/null
         		do
             			printf "Connection Time Out"
                         sleep 30s
