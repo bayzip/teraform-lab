@@ -2,10 +2,10 @@
   connection: localhost
   gather_facts: false
   become: yes
+  become_user: jenkins
   tasks:
     - name: Install NGINX
       yum:
         use_backend: yum
         name: nginx
         state: latest
-      sudo: yes
