@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Provision') { 
             steps {
-                sh label: '', script: 'terraform init -input=false -backend-config=terraform/teraform.tf'
+                sh label: '', script: 'terraform init -input=false'
                 sh label: '', script: 'terraform plan -out=tfplan -input=false'   
                 sh label: '', script: 'terraform apply -input=false tfplan'
             }
@@ -27,11 +27,6 @@ pipeline {
             steps {
                 sh label: '', script: 'pwd'
                 sh label: '', script: 'ansible-playbook ansible/update.yml -i ansible/host.inv'
-            }
-        }
-        stage('Remove Workspace') {
-            steps {
-                sh label: '', script: 'rm -rf *'
             }
         }
     }
