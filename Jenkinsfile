@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Installation Service') {
             steps {
-                ansiblePlaybook installation: 'Ansible', inventory: '${WORKSPACE}/host.inv', playbook: '${WORKSPACE}/update.yml'
+                sh label: '', script: 'ansible-playbook update.yml -i host.inv'
             }
         }
         stage('Remove Workspace') {
