@@ -1,11 +1,12 @@
-- hosts: localhost
-  connection: localhost
+- hosts: all
   gather_facts: false
   become: yes
-  become_user: jenkins
   tasks:
+    - name: Update Server
+      yum:
+        name: '*'
+        state: latest
     - name: Install NGINX
       yum:
-        use_backend: yum
         name: nginx
         state: latest
