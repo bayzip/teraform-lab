@@ -11,8 +11,9 @@ pipeline {
         }
         stage('Giving EIPs') {
             steps {
-        		sh label: '', script: '''callip=$(terraform show | grep public_ip | sed 's/"//g' | awk '{print $3}' | head -n2 | tail -n1)
-                while ! timeout 0.2 ping -c 1 -n $callip &> /dev/null
+        		sh label: '', script: '''chmod 400 docker.pem 
+                callip=$(terraform show | grep public_ip | sed 's/"//g' | awk '{print $3}' | head -n2 | tail -n1)
+                while ! ssh -i docker.pem -o StrictHostKeyChecking ec2-user@$callip uname &> /dev/null
         		do
             			printf "Connection Time Out"
         		done
