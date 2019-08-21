@@ -3,11 +3,8 @@
   gather_facts: false
   become: yes
   tasks:
-    - name: Update Server
-      yum:
-        name: '*'
-        state: present  
     - name: Install NGINX
       yum:
+        use_backend: yum
         name: nginx
-        state: present
+        state: latest

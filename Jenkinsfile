@@ -16,6 +16,7 @@ pipeline {
                 while ! ssh -i docker.pem -o StrictHostKeyChecking=no ec2-user@$callip uname &> /dev/null
         		do
             			printf "Connection Time Out"
+                        sleep 30s
         		done
                 echo "Success Get Response"
                 sed -i "s/AWSIP/$callip/g" host.inv
