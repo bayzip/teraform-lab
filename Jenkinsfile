@@ -2,11 +2,6 @@ pipeline {
     agent {label 'provision'}
 
     stages {
-        stage('Cleaning Workspace') {
-            steps {
-                cleanWs()
-            }
-        }
         stage('Provision') { 
             steps {
                 sh label: '', script: 'terraform init -input=false'
@@ -31,6 +26,11 @@ pipeline {
         stage('Installation Service') {
             steps {
                 ansiblePlaybook installation: 'Ansible', inventory: '${WORKSPACE}/ansible/host.inv', playbook: '${WORKSPACE}/ansible/update.yml'
+            }
+        }
+        stage('Cleaning Workspace') {
+            steps {
+                cleanWs()
             }
         }
     }
