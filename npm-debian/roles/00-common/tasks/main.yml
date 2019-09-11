@@ -1,0 +1,15 @@
+---
+- name: Get Response
+  wait_for_connection:
+    delay: 15
+    timeout: 30
+
+- name: Update Server
+  apt: name='*' state=latest
+  tags: update
+
+- name: Development Tools
+  apt:
+    name:  ['make', 'gcc', 'g++', 'curl', 'git']
+    state: latest
+  tags: devtools

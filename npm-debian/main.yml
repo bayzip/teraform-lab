@@ -1,0 +1,10 @@
+---
+- name: Provisioning New Server
+  hosts: newserve
+  become: true
+  gather_facts: false
+  any_errors_fatal: true
+
+  roles:
+    - 00-common
+    - 01-npm
