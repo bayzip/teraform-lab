@@ -2,6 +2,11 @@ pipeline {
     agent any 
 
     stages {
+        stage('Cleaning Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
         stage('Provision') { 
             steps {
                 sh label: '', script: 'terraform init -input=false'
@@ -25,21 +30,8 @@ pipeline {
         }
         stage('Installation Service') {
             steps {
-                sh label: '', script: 'pwd'
                 ansiblePlaybook installation: 'Ansible', inventory: '${WORKSPACE}/ansible/host.inv', playbook: '${WORKSPACE}/ansible/update.yml'
             }
-        }
-    }
-
-    post {
-        always {
-            emailext attachLog: true, attachmentsPattern: 'generatedFile.txt',
-            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
-            recipientProviders: [developers(), requestor()],
-            subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
-            
-            echo 'Clean Up Data'
-            deleteDir()
         }
     }
 }
