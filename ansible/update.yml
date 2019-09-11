@@ -1,10 +1,19 @@
 - hosts: all
   connection: localhost
+  
+- hosts: example
   gather_facts: false
   become: yes
   tasks:
+    - name: Upgrade all packages to the latest version
+      apt:
+        update_cache: yes
     - name: Install NGINX
-      yum:
-        use_backend: yum
-        name: nginx
+      apt:
+        pkg: nginx
         state: latest
+    - name: Star Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: ye

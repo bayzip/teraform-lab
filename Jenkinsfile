@@ -18,13 +18,13 @@ pipeline {
             steps {
         		sh label: '', script: '''chmod 400 ansible/docker.pem 
                 callip=$(terraform show | grep public_ip | sed 's/"//g' | awk '{print $3}' | head -n2 | tail -n1)
-                while ! ssh -i ansible/docker.pem -o StrictHostKeyChecking=no ec2-user@$callip uname &> /dev/null
+                sed -i "s/AWSIP/$callip/g" ansible/host.inv
+                while ! ssh -o StrictHostKeyChecking=no -i ansible/docker.pem ubuntu@$callip uname &> /dev/null
         		do
             			printf "Connection Time Out"
                         sleep 30s
         		done
                 echo "Success Get Response"
-                sed -i "s/AWSIP/$callip/g" host.inv
         		'''
             }
         }
