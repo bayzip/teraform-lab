@@ -5,11 +5,12 @@
     timeout: 30
 
 - name: Update Server
-  apt: name='*' state=latest
+  apt: upgrade= dist
   tags: update
 
 - name: Development Tools
   apt:
     name:  ['make', 'gcc', 'g++', 'curl', 'git']
     state: latest
+    update_cache: yes
   tags: devtools

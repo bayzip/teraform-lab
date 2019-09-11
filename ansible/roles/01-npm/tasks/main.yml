@@ -1,8 +1,8 @@
 ---
 - name: Install NodeJS
-  apt: name=nodejs state=present
+  apt: name=nodejs state=present update_cache= yes
   tags: nodejs
 
 - name: Install NPM
-  apt: name=npm state=present
+  apt: name=npm state=present update_cache= yes
   tags: npm
