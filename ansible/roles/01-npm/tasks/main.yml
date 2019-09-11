@@ -6,3 +6,7 @@
 - name: Install NPM
   apt: name=npm state=present update_cache=yes
   tags: npm
+
+- name: Install NGINX
+  apt: name=nginx state=present update_cache=yes
+  tags: nginx

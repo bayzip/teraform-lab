@@ -8,8 +8,6 @@
   apt: upgrade=dist
   tags: update
 
-- name: Development Tools
-  apt:
-    name: ['gcc', 'g++', 'curl', 'git']
-    state: latest
-  tags: devtools
+- name: Install Git
+  apt: name=git state=present update_cache=yes
+  tags: npm
