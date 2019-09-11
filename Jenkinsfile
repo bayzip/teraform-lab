@@ -1,5 +1,5 @@
 pipeline {
-    agent any 
+    agent {label 'provision'}
 
     stages {
         stage('Cleaning Workspace') {
