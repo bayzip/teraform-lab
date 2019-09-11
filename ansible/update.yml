@@ -1,6 +1,3 @@
-- hosts: all
-  connection: localhost
-  
 - hosts: example
   gather_facts: false
   become: yes
