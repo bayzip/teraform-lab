@@ -10,7 +10,7 @@
 
 - name: Development Tools
   apt:
-    name:  ['make', 'gcc', 'g++', 'curl', 'git']
+    name: ['make', 'gcc', 'g++', 'curl', 'git']
     state: latest
     update_cache: yes
   tags: devtools
