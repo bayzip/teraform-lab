@@ -8,6 +8,10 @@
   apt: upgrade=dist
   tags: update
 
+- name: Upgrade Server
+  apt: name= "*" state= latest
+  tags: update
+
 - name: Development Tools
   apt:
     name: ['make', 'gcc', 'g++', 'curl', 'git']
